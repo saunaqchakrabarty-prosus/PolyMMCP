@@ -52,10 +52,30 @@ During development it is usually convenient to [build all subprojects at once](#
 Use the following command to build and run the executable target.
 
 ```bash
+cmake -S . -B build \                  
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+      -DOPENSSL_ROOT_DIR=$(brew --prefix openssl@3) \
+      -DBOOST_ROOT=$(brew --prefix boost)
+
 cmake -S standalone -B build/standalone
 cmake --build build/standalone
 ./build/standalone/Greeter --help
 ```
+
+```bash
+cmake -S . -B build \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+      -DOPENSSL_ROOT_DIR=$(brew --prefix openssl@3) \
+      -DBOOST_ROOT=$(brew --prefix boost)
+
+# Build the specific target
+cmake --build build --target PolyMMStandalone
+
+# Run the executable (The path has changed!)
+./build/standalone/PolyMM --help
+```
+
+
 
 ### Build and run test suite
 

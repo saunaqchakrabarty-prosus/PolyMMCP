@@ -47,7 +47,12 @@ find_package(Boost CONFIG REQUIRED)
 # Note: Since you're creating a library, your headers should be in /include
 # and your implementation logic should be in /src
 file(GLOB_RECURSE headers CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
-file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
+
+# DEBUG: Add these lines to see exactly what CMake found in your terminal
+message(STATUS "Cmake source: ${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "Headers found: ${headers}")
+message(STATUS "Sources found: ${sources}")
 
 # ---- Create library ----
 add_library(${PROJECT_NAME} ${headers} ${sources})
@@ -70,6 +75,7 @@ target_include_directories(
 
 # ---- Create an installable target ----
 string(TOLOWER ${PROJECT_NAME}/version.h VERSION_HEADER_LOCATION)
+add_subdirectory(standalone)
 
 packageProject(
   NAME ${PROJECT_NAME}
